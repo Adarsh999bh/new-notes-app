@@ -1,0 +1,25 @@
+#sign-in-button{
+    text-transform:none;
+    font-weight:bold;
+  }
+  
+  #registeration-form{
+    width: 80%;
+    margin: 2% auto;
+  }
+  #imag{
+    margin-top: 50%;
+    margin-left: 40%;
+    margin-right: 5%;
+  }
+  #link-btn{
+    text-transform:none;
+    font-weight:bold;
+  }
+  
+  #login-form{
+    width: 40%;
+    margin: 5% auto;
+  }
+  
+  
