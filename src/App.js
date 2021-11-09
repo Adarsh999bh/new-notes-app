@@ -1,16 +1,16 @@
 import './App.css';
 import Registration from './components/registration/registration';
 import Login from './components/login/login';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ForgetPassWord from './components/forgotPassword/forgotPass';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Switch>
           <Route path="/" exact component={ Registration } />
-          <Route path="/login" exact component={ Login } />
-        </Switch>
+          <Route path="/login" component={ Login } />
+          <Route path="/forgtpass" component={ ForgetPassWord } />
       </Router>
     </div>
   );

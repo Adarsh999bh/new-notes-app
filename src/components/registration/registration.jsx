@@ -20,7 +20,7 @@ import {
 
 import "../../css/extstyle.css"
 
-import axios from "axios";
+import userService from "../../service/userService";
 
 const Registration = () => {
   const [firstName, setFirstName] = useState("");
@@ -68,19 +68,19 @@ const Registration = () => {
       flag=false;
     }
     if(flag===true){
-      axios.post('http://localhost:4000/user',{
-        firstName:firstName,
-        lastName:lastName,
-        age:22,
-        password:password,
-        email:email
-      }).then(response => {
-        alert("Registered Successfully");
-      }).catch(err => {
-        alert("check console for error");
-        console.log(err)
-      })
+        userService.register({
+            firstName:firstName,
+            lastName:lastName,
+            password:password,
+            age:22,
+            email:email
+        }).then(response => {
+            console.log(response);
+        }).catch(err => {
+            console.log(err);
+        })
     }
+    document.getElementById("registeration-form").reset();
   };
 
   return (
@@ -90,9 +90,10 @@ const Registration = () => {
           <Grid item container spacing={1} xs={8}>
             <Grid item xs={12}>
               <Typography variant="h4" align="left">
-                <RainbowText lightness={0.5} saturation={1}>
+                {/* <RainbowText lightness={0.5} saturation={1}>
                   Fundoo Notes
-                </RainbowText>
+                </RainbowText> */}
+                Fundoo Notes
               </Typography>
             </Grid>
             <Grid item xs={12}>

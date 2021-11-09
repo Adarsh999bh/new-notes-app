@@ -9,7 +9,7 @@ import {
   Paper,
 } from "@mui/material";
 import "../../css/extstyle.css"
-import axios from "axios";
+import userService from "../../service/userService";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,16 +31,16 @@ const Login = () => {
       flag=false
     }
     if(flag===true){
-      axios.post('http://localhost:4000/user/login',{
-        email:email,
-        password:password
-      }).then(response => {
-        alert("logged in.!")
-      }).catch(err => {
-        alert("some error ocurred in logging in check console");
-        console.log(err);
-      })
+        userService.login({
+            email:email,
+            password:password
+        }).then(response => {
+            console.log(response);
+        }).catch(err => {
+            console.log(err);
+        });
     }
+    document.getElementById("login-form").reset();
   };
 
   return (
@@ -49,9 +49,10 @@ const Login = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h4">
-              <RainbowText lightness={0.5} saturation={1}>
+              {/* <RainbowText lightness={0.5} saturation={1}>
                 Fundoo Note
-              </RainbowText>
+              </RainbowText> */}
+              Fundoo Note
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -84,7 +85,7 @@ const Login = () => {
             />
           </Grid>
           <Grid item xs={6} align="left">
-            <Button id="link-btn">Forgot password</Button>
+            <Button id="link-btn"component={Link} to="/forgtpass">Forgot password</Button>
           </Grid>
           <Grid item xs={6} align="right">
             <Button variant="contained" type="submit">
