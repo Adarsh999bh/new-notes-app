@@ -3,6 +3,10 @@
     font-weight:bold;
   }
   
+  #resetpassword-form{
+    width: 40%;
+    margin: 5% auto;
+  }
   #registeration-form{
     width: 80%;
     margin: 2% auto;
@@ -26,3 +30,16 @@
     width: 40%;
     margin: 2% auto;
   }  
+
+  .main-container{
+    margin: 5% auto;
+    width:85%;
+  }
+  
+  .appbar-div{
+    border: 1px solid rgba(0, 0, 0, 0.54);
+    border-radius: 5px;
+    display: flex;
+    padding: 4px;
+    margin: auto;
+  }

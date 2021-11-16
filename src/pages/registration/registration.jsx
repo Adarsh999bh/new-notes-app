@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import registerImage from "../../assets/regasset.png";
-import RainbowText from "react-rainbow-text";
 import { Link } from "react-router-dom";
 import {
   validPassword,
@@ -76,6 +75,7 @@ const Registration = () => {
             email:email
         }).then(response => {
             console.log(response);
+            alert("successful registration")
         }).catch(err => {
             console.log(err);
         })
@@ -84,7 +84,7 @@ const Registration = () => {
   };
 
   return (
-    <form id="registeration-form" onSubmit={handleSubmit} autoComplete="off">
+    <form id="registeration-form" onSubmit={handleSubmit} autoComplete="off" name="reg">
       <Paper elevation={5} sx={{ p: 5 }}>
         <Grid container>
           <Grid item container spacing={1} xs={8}>

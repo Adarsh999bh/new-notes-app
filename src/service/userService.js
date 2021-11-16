@@ -4,7 +4,7 @@ const url = require('../config/local');
 const register = (data) => {
     let reqObj = {
       method: "post",
-      url: url.baseURL+"/user",
+      url: url.baseURL+"/user/create",
       headers: {
         "Content-type": "application/json",
       },
@@ -40,7 +40,7 @@ const login = (data) => {
   const forgetPassword = (data) => {
     let reqobj = {
       method: "post",
-      url: url.baseURL+"/user/forgot",
+      url: url.baseURL+"/user/forgotpass",
       headers: {
         "Content-type": "application/json",
       },
@@ -55,4 +55,23 @@ const login = (data) => {
       });
   };
 
-  export default {register,login,forgetPassword}
+  const resetPassword = (data,token) => {
+    let reqobj = {
+      method: "post",
+      url: url.baseURL+"/user/reset/"+token,
+      headers: {
+        "Content-type": "application/json",
+      },
+      data: data,
+    };
+    console.log(reqobj.url);
+    return axiosHelper.post(reqobj)
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  export default {register,login,forgetPassword,resetPassword}

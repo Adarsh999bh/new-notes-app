@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import RainbowText from "react-rainbow-text";
 import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import {
   Grid,
   TextField,
@@ -12,6 +12,7 @@ import "../../css/extstyle.css"
 import userService from "../../service/userService";
 
 const Login = () => {
+  let histroy=useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -35,12 +36,15 @@ const Login = () => {
             email:email,
             password:password
         }).then(response => {
+            alert("successful login");
             console.log(response);
+            localStorage.setItem('token',response.data.token)
+            histroy.push('/home');
         }).catch(err => {
             console.log(err);
         });
     }
-    document.getElementById("login-form").reset();
+    // document.getElementById("login-form").reset();
   };
 
   return (
@@ -85,7 +89,7 @@ const Login = () => {
             />
           </Grid>
           <Grid item xs={6} align="left">
-            <Button id="link-btn"component={Link} to="/forgtpass">Forgot password</Button>
+            <Button id="link-btn"component={Link} to="/forgotpass">Forgot password</Button>
           </Grid>
           <Grid item xs={6} align="right">
             <Button variant="contained" type="submit">
