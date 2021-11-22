@@ -5,10 +5,11 @@ import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
-import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-
-export default function NoteIcons() {
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+export default function NoteIcons(props) {
+    const onClickHandler=()=>{
+        console.log("deleted",props.id);
+    }
   return (
     <div>
       <Grid>
@@ -24,11 +25,8 @@ export default function NoteIcons() {
         <IconButton size="small" color="default" sx={{ padding: "9px" }}>
           <InsertPhotoOutlinedIcon />
         </IconButton>
-        <IconButton size="small" color="default" sx={{ padding: "8px" }}>
-          <ArchiveOutlinedIcon />
-        </IconButton>
-        <IconButton size="small" color="default" sx={{ padding: "8px" }}>
-          <MoreVertOutlinedIcon />
+        <IconButton size="small" onClick={()=>{onClickHandler()}} color="default" sx={{ padding: "8px" }}>
+          <DeleteOutlineOutlinedIcon/>
         </IconButton>
       </Grid>
     </div>

@@ -13,3 +13,10 @@ export const setFilteredNotes = (notes) => {
     payload: notes,
   };
 };
+
+export const addNewNote = (note) => {
+    return {
+      type: ActionTypes.ADD_NEW_NOTE,
+      payload: note,
+    };
+};

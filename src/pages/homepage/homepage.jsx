@@ -1,12 +1,13 @@
-import Sidebar from "../../components/dashboard/SideBar";
-import PrimarySearchAppBar from "../../components/dashboard/AppBar";
-import Note from "../../components/dashboard/Note";
+import Sidebar from "../../components/SideBar";
+import PrimarySearchAppBar from "../../components/AppBar";
+import Note from "../../components/Note";
 import NoteService from '../../service/noteService';
 import React, { useState} from "react";
 import { Box } from "@mui/system";
 import { useDispatch } from "react-redux";
 import { setNotes } from "../../actions/noteActions";
 import { useEffect } from "react";
+import CreateNote from "../../components/createNote";
 
 const Homepage = () => {
     const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ const Homepage = () => {
         NoteService
             .getNotes()
             .then((res) => {
-                dispatch(setNotes(res.data));
+                dispatch(setNotes(res.data.filter(item => !item.trash)));
             })
             .catch((err) => {
                 console.log("inside fetch error")
@@ -42,6 +43,7 @@ const Homepage = () => {
             <PrimarySearchAppBar handleDrawerOpen={handleDrawerOpen} title={title} />
             <Sidebar open={open} handleTitle={handleTitle} />
             <Box component="main" sx={{ flexGrow: 1, p: 3, margin: "5% auto" }}>
+                <CreateNote/>
                 <Note/>
             </Box>
         </Box>

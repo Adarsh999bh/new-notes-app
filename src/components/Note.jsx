@@ -31,7 +31,7 @@ const Note = ({notes}) => {
                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     {item.content}
                   </Typography>
-                  {hover[index] ? <NoteIcons /> : null}
+                  {hover[index] ? <NoteIcons id={item._id} /> : null}
                 </CardContent>
               </Card>
             </Grid>
