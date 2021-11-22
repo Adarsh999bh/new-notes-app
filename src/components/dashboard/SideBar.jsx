@@ -4,7 +4,6 @@ import { List, ListItem} from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import NoteOutlinedIcon from '@mui/icons-material/NoteOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -38,13 +37,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
 const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+
+  shouldForwardProp: (prop) => prop !== "open",})(({ theme, open }) => 
+  ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
@@ -59,48 +58,48 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const Sidebar = ({ open }) => {
+const Sidebar = ({ open,handleTitle }) => {
 
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader />
       <List>
-          <ListItem button>
+
+          <ListItem button onClick={() => handleTitle("Fundoo Note")}>
             <ListItemIcon>
              <LightbulbOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Notes" />
           </ListItem>
-          <ListItem button>
+
+          <ListItem button onClick={() => handleTitle("Reminders")}>
             <ListItemIcon>
              <NotificationsNoneOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Reminders" />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-             <NoteOutlinedIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Label" />
-          </ListItem>
-          <ListItem button>
+
+          <ListItem button onClick={() => handleTitle("Edit labels")}>
             <ListItemIcon>
              <EditOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Edit labels" />
           </ListItem>
-          <ListItem button>
+
+          <ListItem button onClick={() => handleTitle("Archive")}>
             <ListItemIcon>
              <ArchiveOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Archive" />
           </ListItem>
-          <ListItem button>
+
+          <ListItem button onClick={() => handleTitle("Trash")}>
             <ListItemIcon>
              <DeleteOutlineOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Trash" />
           </ListItem>
+          
       </List>
     </Drawer>
   );

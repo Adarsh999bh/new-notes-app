@@ -1,9 +1,8 @@
 import { Box, Grid, Card, CardContent, Typography } from "@mui/material";
 import React from "react";
-
 import "../../css/extstyle.css";
 
-const Note = ({ notes }) => {
+const Note = ({notes}) => {
   return (
     <Box className="main-container">
       <Grid container spacing={4}>
