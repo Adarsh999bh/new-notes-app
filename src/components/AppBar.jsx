@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import keepImage from "../../assets/keep_2020q4_48dp.png";
+import keepImage from "../assets/keep_2020q4_48dp.png";
 import {
   Toolbar,
   Typography,
@@ -15,11 +15,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import SplitscreenOutlinedIcon from "@mui/icons-material/SplitscreenOutlined";
-import "../../css/extstyle.css";
+import "../css/extstyle.css";
 import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setFilteredNotes } from "../../actions/noteActions";
+import { setFilteredNotes } from "../actions/noteActions";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
