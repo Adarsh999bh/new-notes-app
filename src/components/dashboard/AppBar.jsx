@@ -16,10 +16,10 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import SplitscreenOutlinedIcon from "@mui/icons-material/SplitscreenOutlined";
 import "../../css/extstyle.css";
-// import { useState } from "react";
-// import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-
+import { useState,useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setFilteredNotes } from "../../actions/noteActions";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -36,23 +36,23 @@ const AppBar = styled(MuiAppBar, {
 
 
 const Appbar = ({ handleDrawerOpen,title}) => {
-  // const [search, setSearch] = useState("");
-  // const myNotes = useSelector((state) => state.allNotes.notes);
-  // const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
+  const myNotes = useSelector((state) => state.allNotes.notes);
+  const dispatch = useDispatch();
 
-  // const handleSearch = (searchValue) => {
-  //   setSearch(searchValue);
-  // };
+  const handleSearch = (searchValue) => {
+    setSearch(searchValue);
+  };
 
-  // useEffect(() => {
-  //   dispatch(
-  //     setFilteredNotes(
-  //       myNotes.filter((item) => {
-  //         return item.title.toLowerCase().includes(search.toLowerCase());
-  //       })
-  //     )
-  //   );
-  // }, [search, myNotes]);
+  useEffect(() => {
+    dispatch(
+      setFilteredNotes(
+        myNotes.filter((item) => {
+          return item.title.toLowerCase().includes(search.toLowerCase());
+        })
+      )
+    );
+  }, [search, myNotes]);
 
   return (
     <AppBar position="fixed">
