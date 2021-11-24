@@ -37,5 +37,43 @@ const createNotes=(data)=>{
   })
 }
 
+const deleteNotes=(data)=>{
+  const token = localStorage.getItem("token");
+  let reqobj = {
+    method: "delete",
+    url: url.baseURL + "/notes/delete",
+    headers: {
+      authorization: `bearer ${token}`,
+    },
+    data:data
+  };
+  return AxiosHelper.del(reqobj)
+  .then(response=>{
+    return response;
+  })
+  .catch(err=>{
+    return err;
+  })
+}
+
+const updateNotes=(data)=>{
+  const token = localStorage.getItem("token");
+  let reqobj = {
+    method: "put",
+    url: url.baseURL + "/notes/update",
+    headers: {
+      authorization: `bearer ${token}`,
+    },
+    data:data
+  };
+  return AxiosHelper.update(reqobj)
+  .then(response=>{
+    return response;
+  })
+  .catch(err=>{
+    return err;
+  })
+}
+
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
-export default {getNotes, createNotes};
+export default {getNotes, createNotes,deleteNotes,updateNotes};

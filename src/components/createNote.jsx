@@ -32,14 +32,16 @@ const CreateNote = () => {
   };
 
   const handleClose = () => {
+    setTitle("");
+    setContent("");
     setClick(false);
   }
 
   return (
-    <Paper className="add-note-container" elevation={5} style={{width:"500px",marginLeft:"300px"}}>
+    <Paper className="add-note-container" elevation={5} style={{width:"500px",marginLeft:"300px", borderRadius:"10px"}}>
       <InputBase
         type="text"
-        placeholder="Title"
+        placeholder={click ? "Title" : "Take a note..."}
         fullWidth
         name="title"
         inputProps={{
