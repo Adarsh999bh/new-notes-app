@@ -36,7 +36,6 @@ const Login = () => {
             email:email,
             password:password
         }).then(response => {
-            alert("successful login");
             console.log(response);
             localStorage.setItem('token',response.data.token)
             histroy.push('/home');
@@ -92,7 +91,7 @@ const Login = () => {
             <Button id="link-btn"component={Link} to="/forgotpass">Forgot password</Button>
           </Grid>
           <Grid item xs={6} align="right">
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" id="submit">
               Submit
             </Button>
           </Grid>

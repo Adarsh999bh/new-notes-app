@@ -7,6 +7,9 @@ import {
   IconButton,
   TextField,
   InputAdornment,
+  Tooltip,
+  Button,
+  Popover
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
@@ -20,6 +23,7 @@ import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setFilteredNotes } from "../actions/noteActions";
+import { Redirect } from "react-router";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -38,7 +42,21 @@ const AppBar = styled(MuiAppBar, {
 const Appbar = ({ handleDrawerOpen,title}) => {
   const [search, setSearch] = useState("");
   const myNotes = useSelector((state) => state.allNotes.notes);
+  const [logout, setLogout] = useState(false);
   const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handlePopClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLogout(true);
+  };
 
   const handleSearch = (searchValue) => {
     setSearch(searchValue);
@@ -100,16 +118,26 @@ const Appbar = ({ handleDrawerOpen,title}) => {
           fontSize="medium"
           style={{ marginLeft: "15px" }}
         />
-        <div className="appbar-div">
-          <Typography
-            variant="h6"
-            style={{ fontWeight: "bold", marginRight: "5px" }}
+         <div className="appbar-div">
+          <Tooltip title="Account">
+            <IconButton onClick={handlePopClick}>
+              <AccountCircleIcon fontSize="large" />
+            </IconButton>
+          </Tooltip>
+          <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handlePopClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
           >
-           Fundoo Notes
-          </Typography>
-          <AccountCircleIcon fontSize="large" />
+            <Button onClick={handleLogout}>Logout</Button>
+          </Popover>
         </div>
       </Toolbar>
+      {logout ? <Redirect to="/login" /> : null}
     </AppBar>
   );
 };

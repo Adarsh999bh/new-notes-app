@@ -11,10 +11,10 @@ const CreateNote = () => {
   const dispatch = useDispatch();
 
   const handleAddNotes = () => {
-      console.log("in add");
     let data = {
       title: title,
       content: content,
+      color:"rgb(255, 255, 255)",
       trash:false
     };
     service
@@ -59,7 +59,7 @@ const CreateNote = () => {
               fullWidth
               multiline={true}
               inputProps={{
-                style: { height: "36px",paddingLeft:"50px"},
+                style: { minHeight: "36px",paddingLeft:"50px"},
               }}
               onChange={(e) => setContent(e.target.value)}
             />

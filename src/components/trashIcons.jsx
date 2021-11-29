@@ -14,6 +14,7 @@ export default function TrashIcons(props) {
             cardId:props.id,
             title:props.title,
             content:props.content,
+            color:props.colors,
             trash:false,
         }
         noteService.updateNotes(data)
@@ -47,10 +48,10 @@ export default function TrashIcons(props) {
   return (
     <div>
       <Grid>
-        <IconButton size="small" color="default" sx={{ padding: "8px" }} onClick={()=>{restoreHandler()}}>
+        <IconButton size="small" title="Restore" color="default" sx={{ padding: "8px" }} onClick={()=>{restoreHandler()}}>
           <RestoreFromTrashOutlined/>
         </IconButton>
-        <IconButton size="small" color="default" sx={{ padding: "8px" }} onClick={()=>{deleteHandler()}}>
+        <IconButton size="small" title="Delete" color="default" sx={{ padding: "8px" }} onClick={()=>{deleteHandler()}}>
           <DeleteOutlineOutlinedIcon/>
         </IconButton>
       </Grid>
