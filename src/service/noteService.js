@@ -80,7 +80,7 @@ const setImage=(data)=>{
   const token = localStorage.getItem("token");
   let reqobj = {
     method: "post",
-    url: "http://localhost:4000/upload-image",
+    url: "http://localhost:4000/notes/upload-image",
     headers: {
       authorization: `bearer ${token}`,
     },

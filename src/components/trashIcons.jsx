@@ -21,6 +21,7 @@ export default function TrashIcons(props) {
         .then(response=>{
             if (response.status === 200) {
                 dispatch(restoreFromTrash(response.data));
+                props.handleOpenSnackBar(response.data);
               }
               else{
                 console.log("error occured while restoring from trash");
@@ -31,18 +32,14 @@ export default function TrashIcons(props) {
         });
     }
     const deleteHandler=()=>{
-        noteService.deleteNotes({cardId:props.id})
-        .then(response=>{
-            if (response.status === 200) {
-                dispatch(deleteFromTrash({_id:props.id}));
-              }
-              else{
-                console.log("error occured while deleting from trash");
-            }
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+      let data={
+        cardId:props.id,
+        title:props.title,
+        content:props.content,
+        color:props.colors,
+        trash:false,
+    }
+      props.handleDilougOpen(data)
     }
 
   return (

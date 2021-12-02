@@ -38,6 +38,7 @@ const Login = () => {
         }).then(response => {
             console.log(response);
             localStorage.setItem('token',response.data.token)
+            localStorage.setItem("Account",email)
             histroy.push('/home');
         }).catch(err => {
             console.log(err);

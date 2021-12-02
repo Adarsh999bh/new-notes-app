@@ -75,7 +75,6 @@ const Registration = () => {
             email:email
         }).then(response => {
             console.log(response);
-            alert("successful registration")
         }).catch(err => {
             console.log(err);
         })
@@ -179,7 +178,7 @@ const Registration = () => {
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button variant="contained" type="submit">
+              <Button variant="contained" type="submit" id="submit">
                 Submit
               </Button>
             </Grid>

@@ -37,11 +37,9 @@
   }
   
   .appbar-div{
-    border: 1px solid rgba(0, 0, 0, 0.54);
-    border-radius: 5px;
     display: flex;
     padding: 4px;
-    margin: auto;
+    margin-left: auto;
   }
 
 
@@ -56,4 +54,11 @@
     margin: 3% auto;
     padding: 0 2% 0 2%;
     border-radius: 8px;
+  }
+  .item-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
   }

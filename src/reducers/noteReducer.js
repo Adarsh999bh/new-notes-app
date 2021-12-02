@@ -4,10 +4,13 @@ const initialState = {
   notes: [],
   filteredNotes:[],
   trashNotes:[],
+  listView: false,
 };
 
 export const noteReducer = (state=initialState, { type, payload }) => {
   switch (type) {
+    case ActionTypes.LIST_VIEW:
+      return { ...state, listView: !state.listView };
     case ActionTypes.SET_NOTES:
       return {...state,notes:payload}
     case ActionTypes.SET_FILTERED_NOTES:

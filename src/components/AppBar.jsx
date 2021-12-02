@@ -9,7 +9,8 @@ import {
   InputAdornment,
   Tooltip,
   Button,
-  Popover
+  Popover,
+  Avatar,
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
@@ -22,8 +23,9 @@ import "../css/extstyle.css";
 import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setFilteredNotes } from "../actions/noteActions";
+import { setFilteredNotes,listView } from "../actions/noteActions";
 import { Redirect } from "react-router";
+import GridViewIcon from "@mui/icons-material/GridView";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -42,6 +44,7 @@ const AppBar = styled(MuiAppBar, {
 const Appbar = ({ handleDrawerOpen,title}) => {
   const [search, setSearch] = useState("");
   const myNotes = useSelector((state) => state.allNotes.notes);
+  const list = useSelector((state) => state.allNotes.listView);
   const [logout, setLogout] = useState(false);
   const dispatch = useDispatch();
 
@@ -57,6 +60,9 @@ const Appbar = ({ handleDrawerOpen,title}) => {
     localStorage.removeItem("token");
     setLogout(true);
   };
+  const handleView = () => {
+    dispatch(listView());
+  };
 
   const handleSearch = (searchValue) => {
     setSearch(searchValue);
@@ -71,6 +77,8 @@ const Appbar = ({ handleDrawerOpen,title}) => {
       )
     );
   }, [search, myNotes]);
+
+  const account = localStorage.getItem("Account");
 
   return (
     <AppBar position="fixed">
@@ -110,18 +118,38 @@ const Appbar = ({ handleDrawerOpen,title}) => {
           }}
         />
         <RefreshOutlinedIcon fontSize="medium" style={{ marginLeft: "15px" }} />
-        <SplitscreenOutlinedIcon
-          fontSize="medium"
-          style={{ marginLeft: "15px" }}
-        />
+        {!list ? (
+          <Tooltip title="List View">
+            <SplitscreenOutlinedIcon
+              fontSize="medium"
+              onClick={handleView}
+              style={{ marginLeft: "15px" }}
+            />
+          </Tooltip>
+        ) : (
+          <Tooltip title="Grid View">
+            <GridViewIcon
+              fontSize="medium"
+              onClick={handleView}
+              style={{ marginLeft: "15px" }}
+            />
+          </Tooltip>
+        )}
         <SettingsOutlinedIcon
           fontSize="medium"
           style={{ marginLeft: "15px" }}
         />
          <div className="appbar-div">
-          <Tooltip title="Account">
+          <Tooltip
+            title={
+              <span>
+                <b>Fundoo Account</b>
+                <p>{account}</p>
+              </span>
+            }
+          >
             <IconButton onClick={handlePopClick}>
-              <AccountCircleIcon fontSize="large" />
+              <Avatar>{account[0].toLocaleUpperCase()}</Avatar>
             </IconButton>
           </Tooltip>
           <Popover
@@ -133,7 +161,16 @@ const Appbar = ({ handleDrawerOpen,title}) => {
               horizontal: "left",
             }}
           >
-            <Button onClick={handleLogout}>Logout</Button>
+            <Button
+              onClick={handleLogout}
+              style={{
+                color: "black",
+                textTransform: "none",
+                fontWeight: "bold",
+              }}
+            >
+              Logout
+            </Button>
           </Popover>
         </div>
       </Toolbar>

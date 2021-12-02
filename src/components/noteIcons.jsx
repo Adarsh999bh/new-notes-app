@@ -78,6 +78,7 @@ export default function NoteIcons(props) {
       .then(response => {
         if (response.status === 200) {
           dispatch(addTrashNotes(response.data));
+          props.handleOpenSnackBar(response.data);
         }
         else {
           console.log("error occured while moving to trash");
@@ -166,7 +167,7 @@ export default function NoteIcons(props) {
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       <Grid>
-        <IconButton size="small" color="default" onClick={handlePopClick}>
+        <IconButton size="small" color="default" onClick={handlePopClick} id="color-btn">
           <ColorLensOutlinedIcon />
         </IconButton>
         <input
@@ -205,7 +206,7 @@ export default function NoteIcons(props) {
               return (
                 <Grid item xs={3} key={index} style={{ width: "10px" }}>
                   <Tooltip title={colorName}>
-                    <IconButton onClick={() => handleColor(colorCode)}>
+                    <IconButton onClick={() => handleColor(colorCode)} id={index}>
                       <CircleIcon style={{ color: colorCode }} />
                     </IconButton>
                   </Tooltip>

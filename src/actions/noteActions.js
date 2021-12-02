@@ -52,3 +52,8 @@ export const deleteFromTrash = (id) => {
     payload: id,
   };
 };
+export const listView = () => {
+  return {
+    type: ActionTypes.LIST_VIEW,
+  };
+};

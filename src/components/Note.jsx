@@ -1,18 +1,16 @@
-import { Box, Grid, Card, CardContent, Typography, CardMedia} from "@mui/material";
+import { Box, Grid, Card, CardContent, Typography,Button,CardMedia, IconButton} from "@mui/material";
 import React from "react";
 import "../css/extstyle.css";
 import { useSelector } from "react-redux";
 import NoteIcons from "./noteIcons";
 import { useState } from "react";
-import { styled } from "@mui/material/styles";
 import Popup from "./popUp";
 import { Snackbar } from "@mui/material";
-
-// const Cards = styled(Card)`
-//   &:hover {
-//     box-shadow: 0 0 11px rgba(33,33,33,.5); 
-//   }
-// `;
+import "../css/extstyle.css";
+import noteService from "../service/noteService";
+import { useDispatch } from "react-redux";
+import { restoreFromTrash } from "../actions/noteActions";
+import CloseIcon from "@mui/icons-material/Close";
 
 
 
@@ -20,8 +18,21 @@ const Note = () => {
   const myNotes = useSelector((state) => state.allNotes.filteredNotes); 
   const [hover, setHover] = useState([myNotes.map((notes)=>false)]);
   const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const [updateData, setUpdateData] = useState({});
-  const [colorIndexArray,setcolorIndexArray]=useState([myNotes.map(notes=>notes.colorIndex)])
+  const listView = useSelector((state) => state.allNotes.listView);
+  const [undoItem, setundoItem] = useState("");
+  const handleOpenSnackBar = (item) => {
+    setOpen(true);
+    setundoItem(item);
+  };
+  const handleCloseSnackBar = (reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleUpdate = (item, index) => {
     let data = {
@@ -37,13 +48,48 @@ const Note = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleRestore = () => {
+    let data = {
+      ...undoItem,
+      trash: false,
+      cardId:undoItem._id,
+    };
+    noteService
+      .updateNotes(data)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res);
+          dispatch(restoreFromTrash(res.data));
+        } else {
+          console.log(res);
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
+
+
+  const action = (
+    <>
+      <Button size="small" onClick={handleRestore} style={{ color: "yellow" }}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnackBar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
 
   return (
     <Box className="main-container">
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justifyContent={listView ? "center" : null}>
         {myNotes.map((item,index) => {
           return (
-            <Grid item xs={12} sm={6} md={4} key={item._id}>
+            <Grid item xs={12}  md={listView ? 8 : 3} key={item._id}>
               <Card
               onMouseOver={() => {
                 let x=[...hover];
@@ -55,12 +101,11 @@ const Note = () => {
                 x[index]=false
                 setHover(x);
               }}
-              style={{borderRadius:"20px",background: item.color}}
+              style={{borderRadius:"5px",background: item.color}}
               >
                 <CardContent
                 onClick={() => handleUpdate(item, index)}
                 >
-                  {/* {item.imgFile!==""?<img src={`http://localhost:4000/images/${item.imgFile}`} height="200px" width="250px"/>:null} */}
                   {item.imgFile!=="" ? <CardMedia
                     component="img"
                     height="150px"
@@ -73,17 +118,25 @@ const Note = () => {
                       whiteSpace: "normal",
                       height: "2.8em",
                       textOverflow: "-o-ellipsis-lastline",
-                    }} color="text.secondary">
+                    }} color="text.secondary"
+                    className="item-content">
                     {item.content}
                   </Typography>
                 </CardContent>
-                {hover[index] ? <NoteIcons id={item._id} title={item.title} content={item.content} colors={item.color}/> :<div style={{ height:"40px" }}></div>}
+                {hover[index] ? <NoteIcons id={item._id} title={item.title} content={item.content} colors={item.color} handleOpenSnackBar={handleOpenSnackBar}/> :<div style={{ height:"40px" }}></div>}
               </Card>
             </Grid>
           );
         })}
       </Grid>
       {isOpen && <Popup handleClose={handleClose} item={updateData} />}
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackBar}
+        message="Note Trashed"
+        action={action}
+      />
     </Box>
   );
 };
