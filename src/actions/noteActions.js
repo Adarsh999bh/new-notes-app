@@ -57,3 +57,8 @@ export const listView = () => {
     type: ActionTypes.LIST_VIEW,
   };
 };
+export const emptyTrash = () => {
+  return {
+    type: ActionTypes.EMPTY_TRASH,
+  };
+};

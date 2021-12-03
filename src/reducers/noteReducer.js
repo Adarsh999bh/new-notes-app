@@ -43,6 +43,9 @@ export const noteReducer = (state=initialState, { type, payload }) => {
       let copsTrash=state.trashNotes.filter(note=> note._id!==payload._id )
       return {...state,trashNotes:copsTrash}
 
+    case ActionTypes.EMPTY_TRASH:
+      return {...state,trashNotes:[]}
+
     default:
       return state;
   }
