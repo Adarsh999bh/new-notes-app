@@ -141,7 +141,7 @@ const Trash = () => {
                 <CardContent>
                   {item.imgFile !== "" ? <CardMedia
                     component="img"
-                    image={`http://localhost:4000/images/${item.imgFile}`}
+                    image={`https://fundoo-note-be.herokuapp.com/images/${item.imgFile}`}
                     alt="dish"
                   /> : null}
                   <Typography variant="h5">{item.title}</Typography>
