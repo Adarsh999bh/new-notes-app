@@ -74,7 +74,6 @@
               age:22,
               email:email
           }).then(response => {
-              console.log(response);
           }).catch(err => {
               console.log(err);
           })

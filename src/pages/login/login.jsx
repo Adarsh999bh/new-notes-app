@@ -36,7 +36,6 @@ const Login = () => {
             email:email,
             password:password
         }).then(response => {
-            console.log(response);
             localStorage.setItem('token',response.data.token)
             localStorage.setItem("Account",email)
             histroy.push('/home');

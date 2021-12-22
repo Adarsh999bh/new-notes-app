@@ -83,7 +83,7 @@ const Trash = () => {
       noteService
       .deleteNotes({cardId:item._id})
       .then((res)=>{
-        console.log("data");
+        console.log();
       })
       .catch((err)=>{
         console.log(err);
